@@ -146,7 +146,7 @@ async def done(client,message):
 
  images[0].save(path, save_all = True, append_images = images[1:])
  
- msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
+ msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr), thumb = thumbnail)
  os.remove(path)
  await abcd.delete()
  
