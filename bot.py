@@ -151,39 +151,6 @@ async def done(client,message):
  await abcd.delete()
  
 
-@app.on_message(filters.command(['compress']))
-async def compress_pdf(client, message):
- if message.chat.id not in LIST:          
-  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
-  return
-
- if message.reply_to_message is not None:
-  file_s = message.reply_to_message
-  a = await client.send_message(
-   chat_id=message.chat.id,
-   text=f"Processing…",
-   reply_to_message_id=message.message_id
-  )
-  c_time = time.time()
-  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
-  
-  reader = PdfReader(file)
-  writer = PdfWriter()
-
-  for page in reader.pages:
-   page.compress_content_streams()  # This is CPU intensive!
-   writer.add_page(page)
-
-  path = f"{message.from_user.id}" + ".pdf"
-
-  with open("path", "wb") as f:
-   writer.write(f)
-
-  msg = await client.send_document(message.from_user.id, path) #open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
-  await abcd.delete()
-  os.remove(file)
-
-
 @app.on_message(filters.command(['info']))
 async def pdf_info(client, message):
  if message.chat.id not in LIST:          
