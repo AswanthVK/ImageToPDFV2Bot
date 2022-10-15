@@ -20,11 +20,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 
-TOKEN = os.environ.get("TOKEN", "5310808265:AAG5NxJfxQd2ftV_uVr0EmtqKqvfyTdHcZk")
+TOKEN = os.environ.get("TOKEN", "")
 
-API_ID = int(os.environ.get("API_ID", "663122"))
+API_ID = int(os.environ.get("API_ID", ""))
 
-API_HASH = os.environ.get("API_HASH", "23dac54b523173b5f83014ae566584bd")
+API_HASH = os.environ.get("API_HASH", "")
 
 app = Client(
         "pdf",
@@ -133,15 +133,15 @@ async def done(client,message):
  if not images:
   await abcd.edit( "No image !!")
   return
- #removed thumbnail support if u want u can add
- #thumb_path = os.path.join(os.getcwd(), "img")
- #if not os.path.isdir(thumb_path):
-  #os.makedirs(thumb_path)
-  #urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
- #else:
-  #pass
+ removed thumbnail support if u want u can add
+ thumb_path = os.path.join(os.getcwd(), "img")
+ if not os.path.isdir(thumb_path):
+  os.makedirs(thumb_path)
+  urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
+ else:
+  pass
     
- #thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
+ thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
  path = f"{message.from_user.id}" + ".pdf"
 
  images[0].save(path, save_all = True, append_images = images[1:])
@@ -244,14 +244,14 @@ async def link_extract(client, message):
         return
     file_name = str()
     
-    #thumb_path = os.path.join(os.getcwd(), "img")
-    #if not os.path.isdir(thumb_path):
-        #os.makedirs(thumb_path)
-        #urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
-    #else:
-        #pass
+    thumb_path = os.path.join(os.getcwd(), "img")
+    if not os.path.isdir(thumb_path):
+        os.makedirs(thumb_path)
+        urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
+    else:
+        pass
     
-    #thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
+    thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
     
     await client.send_chat_action(message.chat.id, "typing")
     msg = await message.reply_text(Translation.PROCESS_TXT, reply_to_message_id=message.message_id)
@@ -280,7 +280,7 @@ async def link_extract(client, message):
     msgg = await message.reply_document(
         document=file_name,
         caption=Translation.CAPTION_TXT.format(file_name)
-        #thumb=thumbnail
+        thumb=thumbnail
     )
     try:
         os.remove(file_name)
